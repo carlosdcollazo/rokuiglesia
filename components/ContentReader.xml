@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ContentReader" extends="Task">
+  <interface>
+    <field id="uri" type="string" />
+    <field id="content" type="node" />
+  </interface>
+
+  <script type="text/brightscript">
+    <![CDATA[
+    sub init()
+        m.top.functionName = "getcontent"
+    end sub
+
+    sub getcontent()
+        content = CreateObject("roSGNode", "ContentNode")
+        readInternet = CreateObject("roUrlTransfer")
+        readInternet.setCertificatesFile("common:/certs/ca-bundle.crt")
+        readInternet.initClientCertificates()
+        readInternet.setUrl(m.top.uri)
+        
+        response = readInternet.GetToString()
+        print "FEED URL: "; m.top.uri
+        print "FEED RESPONSE: "; response
+        json = ParseJson(response)
+        
+        if json <> invalid and type(json) = "roArray"
+            for each item in json
+                child = content.CreateChild("ContentNode")
+                child.title = item.title
+                child.url = item.url
+                if item.streamformat <> invalid
+                    child.streamFormat = item.streamformat
+                else if item.streamFormat <> invalid
+                    child.streamFormat = item.streamFormat
+                else
+                    child.streamFormat = "mp4"
+                end if
+
+                if item.contenttype <> invalid
+                    child.contentType = item.contenttype
+                else
+                    child.contentType = "movie"
+                end if
+
+                if item.hdposterurl <> invalid
+                    child.hdPosterUrl = item.hdposterurl
+                else if item.hdPosterUrl <> invalid
+                    child.hdPosterUrl = item.hdPosterUrl
+                end if
+
+                if item.sdposterurl <> invalid
+                    child.sdPosterUrl = item.sdposterurl
+                else if item.sdPosterUrl <> invalid
+                    child.sdPosterUrl = item.sdPosterUrl
+                end if
+            next
+        end if
+        
+        m.top.content = content
+    end sub
+    ]]>
+  </script>
+</component>

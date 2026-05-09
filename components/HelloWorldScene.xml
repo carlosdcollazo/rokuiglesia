@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HelloWorldScene" extends="Scene">
+  <children>
+    <!-- Fondo slideshow pantalla completa -->
+    <Poster id="slideShowFotos" translation="[0, 0]" width="1280" height="720" loadDisplayMode="scaleToFill" />
+    <Rectangle id="overlayAzul" width="1280" height="720" color="0x061A3D99" />
+    <Rectangle id="overlayDegradado" translation="[0,0]" width="1280" height="720" color="0x00000055" />
+
+    <!-- Splash inicial elegante -->
+    <Rectangle id="splashBg" width="1280" height="720" color="0x061A3DFF" visible="true" />
+    <Poster id="splashLogo" uri="pkg:/images/logo_hd.png" translation="[465, 135]" width="350" height="350" loadDisplayMode="scaleToFit" visible="true" />
+    <Label id="splashTitle" text="La Primera Deltona" translation="[0, 500]" width="1280" height="70" horizAlign="center" color="0xF5D76EFF" font="font:LargeBoldSystemFont" visible="true" />
+
+    <!-- Branding / menú lateral -->
+    <Poster id="logoMenu" uri="pkg:/images/logo_hd.png" translation="[55, 35]" width="145" height="145" loadDisplayMode="scaleToFit" />
+    <Label id="tituloCanal" text="La Primera Deltona" translation="[215, 62]" width="430" height="45" color="0xF5D76EFF" font="font:MediumBoldSystemFont" />
+    <Label id="subtituloCanal" text="Canal Oficial Roku" translation="[218, 108]" width="380" height="34" color="0xFFFFFFFF" font="font:SmallSystemFont" />
+    <Rectangle id="lineaDorada" translation="[70, 178]" width="430" height="4" color="0xD4AF37FF" />
+
+    <LabelList
+      id="menuIglesia"
+      translation="[70, 220]"
+      itemSize="[470, 68]"
+      textColor="0xFFFFFFFF"
+      focusedTextColor="0xF5D76EFF"
+      textAttributes='{"fontSize":30}'
+      focusedTextAttributes='{"fontSize":36, "fontStyle":"Bold"}' />
+
+    <!-- Área derecha: texto de bienvenida / previews -->
+    <Label id="homeHeadline" text="Bienvenido" translation="[610, 110]" width="570" height="50" color="0xF5D76EFF" font="font:LargeBoldSystemFont" />
+    <Label id="homeText" text="Seleccione una categoría para ver predicaciones, estudios bíblicos, podcast o la transmisión en vivo." translation="[610, 170]" width="560" height="120" wrap="true" color="0xFFFFFFFF" font="font:MediumSystemFont" />
+
+    <!-- Lista moderna de videos -->
+    <Rectangle id="panelListaVideos" translation="[35, 25]" width="1210" height="660" color="0x061A3DEE" visible="false" />
+    <Rectangle id="lineaLista" translation="[70, 92]" width="1110" height="4" color="0xD4AF37FF" visible="false" />
+    <Label id="tituloSeccion" text="Videos" translation="[70, 45]" width="800" height="45" color="0xF5D76EFF" font="font:LargeBoldSystemFont" visible="false" />
+
+    <LabelList
+      id="listaVideos"
+      translation="[75, 125]"
+      itemSize="[610, 62]"
+      visible="false"
+      textColor="0xFFFFFFFF"
+      focusedTextColor="0xF5D76EFF"
+      textAttributes='{"fontSize":24}'
+      focusedTextAttributes='{"fontSize":28, "fontStyle":"Bold"}' />
+
+    <Poster id="previewThumb" translation="[745, 135]" width="410" height="230" loadDisplayMode="scaleToFit" visible="false" />
+    <Label id="previewTitle" translation="[745, 385]" width="410" height="130" wrap="true" color="0xFFFFFFFF" font="font:MediumBoldSystemFont" visible="false" />
+    <Label id="previewHint" text="Presione OK para reproducir" translation="[745, 535]" width="410" height="45" color="0xF5D76EFF" font="font:MediumSystemFont" visible="false" />
+
+    <Label id="mensajeEstado" text="" translation="[280, 325]" width="720" height="90" horizAlign="center" wrap="true" color="0xFFFFFFFF" font="font:MediumBoldSystemFont" visible="false" />
+
+    <Timer id="fotoTimer" repeat="true" duration="5" />
+    <Timer id="splashTimer" repeat="false" duration="2.3" />
+  </children>
+
+  <script type="text/brightscript" uri="pkg:/source/logic.brs" />
+</component>

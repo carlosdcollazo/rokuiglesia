@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="StreamResolver" extends="Task">
+  <interface>
+    <field id="uri" type="string" />
+    <field id="title" type="string" />
+    <field id="content" type="node" />
+    <field id="error" type="string" />
+  </interface>
+
+  <script type="text/brightscript">
+    <![CDATA[
+    sub init()
+        m.top.functionName = "resolver"
+    end sub
+
+    sub resolver()
+        readInternet = CreateObject("roUrlTransfer")
+        readInternet.setCertificatesFile("common:/certs/ca-bundle.crt")
+        readInternet.initClientCertificates()
+        readInternet.setUrl(m.top.uri)
+        readInternet.addHeader("Accept", "application/json")
+
+        response = readInternet.GetToString()
+        print "RESOLVER URL: "; m.top.uri
+        print "RESOLVER RESPONSE: "; response
+
+        json = ParseJson(response)
+        if json <> invalid and json.url <> invalid and json.url <> ""
+            content = CreateObject("roSGNode", "ContentNode")
+            if json.title <> invalid and json.title <> ""
+                content.title = json.title
+            else
+                content.title = m.top.title
+            end if
+            content.url = json.url
+            if json.streamformat <> invalid
+                content.streamFormat = json.streamformat
+            else
+                content.streamFormat = "hls"
+            end if
+            content.contentType = "movie"
+            m.top.content = content
+        else
+            if json <> invalid and json.error <> invalid
+                m.top.error = json.error
+            else
+                m.top.error = "No se pudo obtener el stream reproducible."
+            end if
+        end if
+    end sub
+    ]]>
+  </script>
+</component>
