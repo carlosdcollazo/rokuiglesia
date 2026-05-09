@@ -20,7 +20,7 @@ sub init()
     m.timer = m.top.findNode("fotoTimer")
     m.splashTimer = m.top.findNode("splashTimer")
 
-    m.baseUrl = "http://192.168.1.150:5000/feed/"
+    m.baseUrl = "https://rokuiglesia.onrender.com/feed/"
 
     m.menu.content = crearMenu()
     m.menu.setFocus(true)
